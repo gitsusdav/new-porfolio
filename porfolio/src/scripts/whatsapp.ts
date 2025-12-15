@@ -18,11 +18,11 @@ interface WhatsAppConfig {
   apiKey: string; // Tu API Key de CallMeBot
 }
 
-// IMPORTANTE: Configura tu número y API Key aquí
+// Configuración desde variables de entorno
 const whatsappConfig: WhatsAppConfig = {
-  enabled: false, // Cambia a true cuando tengas tu API Key
-  phoneNumber: 'TU_NUMERO', // Ejemplo: 584121234567
-  apiKey: 'TU_API_KEY' // Tu API Key de CallMeBot
+  enabled: true,
+  phoneNumber: import.meta.env.PUBLIC_CALLMEBOT_PHONE_NUMBER || '',
+  apiKey: import.meta.env.PUBLIC_CALLMEBOT_API_KEY || ''
 };
 
 export interface ContactNotification {
@@ -47,8 +47,8 @@ export async function sendWhatsAppNotification(data: ContactNotification): Promi
   }
 
   // Validar configuración
-  if (whatsappConfig.phoneNumber === 'TU_NUMERO' || whatsappConfig.apiKey === 'TU_API_KEY') {
-    console.warn('⚠️ WhatsApp no está configurado correctamente');
+  if (!whatsappConfig.phoneNumber || !whatsappConfig.apiKey) {
+    console.warn('⚠️ WhatsApp no está configurado correctamente. Verifica las variables de entorno.');
     return false;
   }
 
@@ -81,23 +81,23 @@ export async function sendWhatsAppNotification(data: ContactNotification): Promi
  * @returns string - Mensaje formateado
  */
 function buildNotificationMessage(data: ContactNotification): string {
-  let message = `🚀 *Nuevo Lead!*\n\n`;
-  message += `👤 *Nombre:* ${data.nombre}\n`;
-  message += `📧 *Email:* ${data.email}\n`;
+  let message = `*Nuevo mensaje de tu sitio*\n\n`;
+  message += `*Nombre:* ${data.nombre}\n`;
+  message += `*Email:* ${data.email}\n`;
 
   if (data.telefono) {
-    message += `📱 *Teléfono:* ${data.telefono}\n`;
+    message += `*Teléfono:* ${data.telefono}\n`;
   }
 
   if (data.pais) {
-    message += `🌎 *País:* ${data.pais}\n`;
+    message += `*País:* ${data.pais}\n`;
   }
 
   if (data.presupuesto) {
-    message += `💰 *Presupuesto:* ${data.presupuesto}\n`;
+    message += `*Presupuesto:* ${data.presupuesto}\n`;
   }
 
-  message += `\n💬 *Mensaje:*\n${data.mensaje}`;
+  message += `\n*Mensaje:*\n${data.mensaje}`;
 
   return message;
 }
@@ -118,6 +118,6 @@ export function getWhatsAppStatus(): Omit<WhatsAppConfig, 'apiKey'> & { apiKeyCo
   return {
     enabled: whatsappConfig.enabled,
     phoneNumber: whatsappConfig.phoneNumber,
-    apiKeyConfigured: whatsappConfig.apiKey !== 'TU_API_KEY'
+    apiKeyConfigured: !!whatsappConfig.apiKey
   };
 }

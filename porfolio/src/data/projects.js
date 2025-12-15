@@ -29,8 +29,8 @@ export const projectsData = {
       `,
       image: totalTimeImg,
       tags: ["Next.js", "React", "Tailwind", "Supabase"],
-      repo: "https://github.com/yourusername/total-time",
-      live: "https://totaltime.app"
+      repo: "#",
+      live: "https://www.total-time.app/demo"
     },
     {
       id: 2,
@@ -53,8 +53,8 @@ export const projectsData = {
       `,
       image: victoriasCakeImg,
       tags: ["Next.js", "React", "Supabase", "Bunny.net"],
-      repo: "https://github.com/yourusername/victorias-cake",
-      live: "https://victoriascake.com"
+      repo: "#",
+      live: "https://www.victoriascake.com/"
     },
     {
       id: 3,
@@ -76,8 +76,8 @@ export const projectsData = {
       `,
       image: btmStudioImg,
       tags: ["Next.js", "OpenAI", "i18n", "Supabase"],
-      repo: "https://github.com/yourusername/btm-studio",
-      live: "https://btmstudio.com"
+      repo: "#",
+      live: "https://www.btm-studio.com/en"
     },
     {
       id: 4,
@@ -98,8 +98,8 @@ export const projectsData = {
       `,
       image: michelleViloriaImg,
       tags: ["Astro", "Decap CMS", "Marketing"],
-      repo: "https://github.com/yourusername/michelle-viloria",
-      live: "https://michelleviloria.com"
+      repo: "#",
+      live: "https://www.michelleviloria.com/"
     },
     {
       id: 5,
@@ -120,7 +120,7 @@ export const projectsData = {
       `,
       image: mySystemImg,
       tags: ["C#", "Windows Forms", "Web Scraping"],
-      repo: "https://github.com/yourusername/sistema-my",
+      repo: "https://github.com/gitsusdav/Sistema-Tienda-M-Y",
       live: "#"
     },
     {
@@ -139,8 +139,8 @@ export const projectsData = {
       `,
       image: fbtoolImg,
       tags: ["ASP.NET", "jQuery", "Bootstrap"],
-      repo: "https://github.com/yourusername/followbacktool",
-      live: "https://followbacktool.com"
+      repo: "https://github.com/gitsusdav/followBackTool",
+      live: "#"
     },
     {
       id: 7,
@@ -158,8 +158,8 @@ export const projectsData = {
       `,
       image: simpleLeadImg,
       tags: ["Google Sheets", "WhatsApp API", "Forms"],
-      repo: "https://github.com/yourusername/simple-lead-manager",
-      live: "https://simpleleadmanager.com"
+      repo: "https://github.com/gitsusdav/simple-lead-manager",
+      live: "#"
     },
     {
       id: 8,
@@ -177,8 +177,8 @@ export const projectsData = {
       `,
       image: visitEscagueyImg,
       tags: ["Tailwind CSS", "Turismo"],
-      repo: "https://github.com/yourusername/visit-escaguey",
-      live: "https://visitescaguey.com"
+      repo: "https://github.com/gitsusdav/escaguey",
+      live: "https://visitaescaguey.netlify.app/"
     },
     {
       id: 9,
@@ -196,8 +196,8 @@ export const projectsData = {
       `,
       image: olasAcuarelaImg,
       tags: ["Tailwind CSS", "Turismo"],
-      repo: "https://github.com/yourusername/olas-acuarela",
-      live: "https://olasdeacuarela.com"
+      repo: "https://github.com/gitsusdav/olas-de-acuarela",
+      live: "https://olasdeacuarela.netlify.app/"
     }
   ],
   en: [
@@ -219,8 +219,8 @@ export const projectsData = {
       `,
       image: totalTimeImg,
       tags: ["Next.js", "React", "Tailwind", "Supabase"],
-      repo: "https://github.com/yourusername/total-time",
-      live: "https://totaltime.app"
+      repo: "#",
+      live: "https://www.total-time.app/demo"
     },
     {
       id: 2,
@@ -242,15 +242,15 @@ export const projectsData = {
       `,
       image: victoriasCakeImg,
       tags: ["Next.js", "React", "Supabase", "Bunny.net"],
-      repo: "https://github.com/yourusername/victorias-cake",
-      live: "https://victoriascake.com"
+      repo: "#",
+      live: "https://www.victoriascake.com/"
     },
     {
       id: 3,
       title: "BTM Studio",
       shortDescription: "BTM Studio presentation page that helps transform project ideas into a clear and structured action plan.",
       description: `
-        The BTM Studio page is developed with Next.js, React, Tailwind CSS, multilanguage support
+        This page is developed with Next.js, React, Tailwind CSS, multilanguage support
         (i18n), and Supabase. It also integrates the OpenAI API to enhance the user experience.
         <br><br>
         It allows users to describe their project idea and automatically convert it into an organized
@@ -262,8 +262,8 @@ export const projectsData = {
       `,
       image: btmStudioImg,
       tags: ["Next.js", "OpenAI", "i18n", "Supabase"],
-      repo: "https://github.com/yourusername/btm-studio",
-      live: "https://btmstudio.com"
+      repo: "#",
+      live: "https://www.btm-studio.com/en"
     },
     {
       id: 4,
@@ -283,15 +283,15 @@ export const projectsData = {
       `,
       image: michelleViloriaImg,
       tags: ["Astro", "Decap CMS", "Marketing"],
-      repo: "https://github.com/yourusername/michelle-viloria",
-      live: "https://michelleviloria.com"
+      repo: "#",
+      live: "https://www.michelleviloria.com/"
     },
     {
       id: 5,
       title: "M&Y System",
-      shortDescription: "Inventory and sales management system developed for M&Y Stationery Store.",
+      shortDescription: "Inventory and sales management system developed for M&Y Store.",
       description: `
-        Desktop system developed with Windows Forms, designed to cover the stationery's operational
+        Desktop system developed with Windows Forms, designed to cover the stores's operational
         needs. The application has a dashboard that displays sales in both bolivars and dollars,
         facilitating daily financial control.
         <br><br>
@@ -303,7 +303,7 @@ export const projectsData = {
       `,
       image: mySystemImg,
       tags: ["C#", "Windows Forms", "Web Scraping"],
-      repo: "https://github.com/yourusername/sistema-my",
+      repo: "https://github.com/gitsusdav/Sistema-Tienda-M-Y",
       live: "#"
     },
     {
@@ -315,15 +315,15 @@ export const projectsData = {
         to analyze Instagram follower and following data in a simple and fast way.
         <br><br>
         Users can upload JSON files exported from Instagram, and the platform processes the information
-        to automatically identify accounts that don't follow back.
+        to automatically identify accounts that don't follow you back.
         <br><br>
         The system offers a practical solution to manage and analyze social media relationships,
         without needing direct access to the user's account or external integrations.
       `,
       image: fbtoolImg,
       tags: ["ASP.NET", "jQuery", "Bootstrap"],
-      repo: "https://github.com/yourusername/followbacktool",
-      live: "https://followbacktool.com"
+      repo: "https://github.com/gitsusdav/followBackTool",
+      live: "#"
     },
     {
       id: 7,
@@ -340,8 +340,8 @@ export const projectsData = {
       `,
       image: simpleLeadImg,
       tags: ["Google Sheets", "WhatsApp API", "Forms"],
-      repo: "https://github.com/yourusername/simple-lead-manager",
-      live: "https://simpleleadmanager.com"
+      repo: "https://github.com/gitsusdav/simple-lead-manager",
+      live: "#"
     },
     {
       id: 8,
@@ -350,8 +350,7 @@ export const projectsData = {
       description: `
         It's a website developed exclusively with Tailwind CSS, created to promote the tourist
         attractions of the town of Escagüey and its surroundings. The site clearly presents tourist
-        locations, as well as an accommodations section, facilitating the dissemination of the area's
-        tourism potential.
+        locations, as well as an accommodations section.
         <br><br>
         This project was developed for the research group led by my friend Brandon Rangel, belonging
         to the Hotel School of the Venezuelan Andes, and was used as support material for the town's
@@ -359,8 +358,8 @@ export const projectsData = {
       `,
       image: visitEscagueyImg,
       tags: ["Tailwind CSS", "Tourism"],
-      repo: "https://github.com/yourusername/visit-escaguey",
-      live: "https://visitescaguey.com"
+      repo: "https://github.com/gitsusdav/escaguey",
+      live: "https://visitaescaguey.netlify.app/"
     },
     {
       id: 9,
@@ -377,8 +376,8 @@ export const projectsData = {
       `,
       image: olasAcuarelaImg,
       tags: ["Tailwind CSS", "Tourism"],
-      repo: "https://github.com/yourusername/olas-acuarela",
-      live: "https://olasdeacuarela.com"
+      repo: "https://github.com/gitsusdav/olas-de-acuarela",
+      live: "https://olasdeacuarela.netlify.app/"
     }
   ]
 };

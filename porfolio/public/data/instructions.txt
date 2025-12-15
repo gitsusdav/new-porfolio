@@ -1,0 +1,13 @@
+estos son los ultimos detalles del sitio:
+1. acomoda el boton al hacer hover "ver mas" para que no se vea tan ancho
+2. agrega links a los proyectos, algunos no puedo darle acceso al usuario al repo porque son proyectos ajenos, asi que seran estos:
+totaltime link pagina(solo pagina): https://www.total-time.app/demo
+victoria cake (solo pagina): https://www.victoriascake.com/
+btm studio (solo pagina): https://www.btm-studio.com/en
+michelle viloria (solo pagina): https://www.michelleviloria.com/
+sistema m&y (solo repo): https://github.com/gitsusdav/Sistema-Tienda-M-Y
+followbacktook (solo repo): https://github.com/gitsusdav/followBackTool 
+simple lead manager (solo repo): https://github.com/gitsusdav/simple-lead-manager
+visit escaguey repo: https://github.com/gitsusdav/escaguey pagina: https://visitaescaguey.netlify.app/
+olas de acuarela repo: https://github.com/gitsusdav/olas-de-acuarela pagina: https://olasdeacuarela.netlify.app/
+3. agrega los pdfs que estan en /data que son para curriculum 

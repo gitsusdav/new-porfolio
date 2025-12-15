@@ -51,6 +51,19 @@ export const ui = {
     'contact.info.responseTime': '24-48 horas',
     'contact.info.location': 'Ubicación',
     'contact.info.remote': 'Trabajo remoto',
+
+    // Footer
+    'footer.description': 'Desarrollador Full Stack especializado en crear soluciones web modernas y eficientes. Transformo ideas en experiencias digitales excepcionales.',
+    'footer.services': 'Servicios',
+    'footer.service.web': 'Desarrollo Web',
+    'footer.service.desktop': 'Apps de Escritorio',
+    'footer.service.data': 'Análisis de Datos',
+    'footer.service.automation': 'Automatización',
+    'footer.contactTitle': 'Contacto',
+    'footer.location': 'Trabajo Remoto',
+    'footer.rights': 'Todos los derechos reservados.',
+    'footer.privacy': 'Política de Privacidad',
+    'footer.terms': 'Términos de Uso',
   },
   en: {
     // Navbar
@@ -97,5 +110,18 @@ export const ui = {
     'contact.info.responseTime': '24-48 hours',
     'contact.info.location': 'Location',
     'contact.info.remote': 'Remote work',
+
+    // Footer
+    'footer.description': 'Software Developer specialized in creating modern and efficient web solutions. I transform ideas into digital experiences.',
+    'footer.services': 'Services',
+    'footer.service.web': 'Web Development',
+    'footer.service.desktop': 'Desktop Apps',
+    'footer.service.data': 'Data Analysis',
+    'footer.service.automation': 'Automation',
+    'footer.contactTitle': 'Contact',
+    'footer.location': 'Remote Work',
+    'footer.rights': 'All rights reserved.',
+    'footer.privacy': 'Privacy Policy',
+    'footer.terms': 'Terms of Use',
   },
 } as const;

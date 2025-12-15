@@ -9,8 +9,8 @@
  * 5. Copia la URL y pégala en la constante GOOGLE_SCRIPT_URL abajo
  */
 
-// IMPORTANTE: Reemplaza con tu URL de Google Apps Script
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxfNjJKJ1n7H89Q-kYHKoR9JQ8OMYvGVkBfVOrEk5wH9rCBH7v6ljvBTSn_Mr9wlDyM/exec';
+// URL de Google Apps Script desde variables de entorno
+const GOOGLE_SCRIPT_URL = import.meta.env.PUBLIC_GOOGLE_SCRIPT_URL;
 
 /**
  * Envía los datos del formulario a Google Sheets
