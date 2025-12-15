@@ -1,0 +1,252 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import ProjectModal from './ProjectModal.astro';
+import { Image } from 'astro:assets';
+import { getProjects } from '../data/projects.js';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Obtener proyectos según el idioma
+interface Project {
+  id: number;
+  title: string;
+  image: ImageMetadata;
+  tags: string[];
+  shortDescription: string;
+  description: string;
+  repo: string;
+  live: string;
+}
+
+const projects: Project[] = getProjects(lang);
+
+// Configuración de paginación
+const PROJECTS_PER_PAGE = 4;
+---
+
+<section id="projects" class="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+        {t('projects.title')}
+      </h2>
+      <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {projects.map((project, index) => (
+        <div
+          class="project-card group relative overflow-hidden rounded-2xl"
+          style="min-height: 320px;"
+        >
+          <!-- Background Image -->
+          <div class="absolute inset-0">
+            <Image
+              src={project.image}
+              alt={project.title}
+              class="w-full h-full object-cover"
+              loading="lazy"
+              width={800}
+              height={600}
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+          </div>
+
+          <!-- Content -->
+          <div class="relative h-full flex flex-col justify-between p-8">
+            <!-- Top Section - Tags -->
+            <div class="flex gap-2 flex-wrap">
+              {project.tags.map(tag => (
+                <span class="px-3 py-1 bg-blue-500/90 text-white text-sm font-semibold rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <!-- Bottom Section - Title -->
+            <div>
+              <h3 class="text-2xl md:text-3xl font-bold text-white mb-2">
+                {project.title}
+              </h3>
+            </div>
+          </div>
+
+          <!-- Hover Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-blue-950/95 to-gray-950/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-8">
+            <!-- Top Section - Tags (on hover) -->
+            <div class="flex gap-2 flex-wrap">
+              {project.tags.map(tag => (
+                <span class="px-3 py-1 bg-blue-500 text-white text-sm font-semibold rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <!-- Middle Section - Title & Description -->
+            <div class="flex-1 flex items-center">
+              <div>
+                <h3 class="text-2xl md:text-3xl font-bold text-white mb-3">
+                  {project.title}
+                </h3>
+                <p class="text-gray-200 text-lg">
+                  {project.shortDescription}
+                </p>
+              </div>
+            </div>
+
+            <!-- Bottom Section - Button -->
+            <div>
+              <button
+                onclick={`openProjectModal('modal-${project.id}')`}
+                class="w-full px-6 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200 text-center flex items-center justify-center gap-2"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                {t('projects.viewMore')}
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="flex justify-center items-center gap-3 mt-12">
+      <button
+        id="prev-btn"
+        class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-gray-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        aria-label="Página anterior"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+
+      <div id="pagination-dots" class="flex gap-2">
+        <!-- Los puntos se generarán dinámicamente con JavaScript -->
+      </div>
+
+      <button
+        id="next-btn"
+        class="w-12 h-12 flex items-center justify-center rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+        aria-label="Página siguiente"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  {projects.map((project: Project) => (
+    <ProjectModal project={project} lang={lang} />
+  ))}
+</section>
+
+<script is:inline define:vars={{ PROJECTS_PER_PAGE }}>
+  let currentPage = 1;
+  const projectCards = document.querySelectorAll('.project-card');
+  const totalProjects = projectCards.length;
+  const totalPages = Math.ceil(totalProjects / PROJECTS_PER_PAGE);
+
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const paginationDots = document.getElementById('pagination-dots');
+
+  // Generar los puntos de paginación
+  function createPaginationDots() {
+    paginationDots.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'w-12 h-12 flex items-center justify-center rounded-full text-white font-semibold transition-all';
+      dot.textContent = i;
+      dot.setAttribute('aria-label', `Ir a página ${i}`);
+      dot.setAttribute('data-page', i);
+
+      if (i === currentPage) {
+        dot.classList.add('bg-blue-600', 'scale-110');
+      } else {
+        dot.classList.add('bg-gray-800', 'hover:bg-gray-700');
+      }
+
+      dot.addEventListener('click', () => {
+        showPage(i);
+      });
+
+      paginationDots.appendChild(dot);
+    }
+  }
+
+  function updatePaginationDots() {
+    const dots = paginationDots.querySelectorAll('button');
+    dots.forEach((dot, index) => {
+      const pageNum = index + 1;
+      dot.classList.remove('bg-blue-600', 'bg-gray-800', 'scale-110', 'hover:bg-gray-700');
+
+      if (pageNum === currentPage) {
+        dot.classList.add('bg-blue-600', 'scale-110');
+      } else {
+        dot.classList.add('bg-gray-800', 'hover:bg-gray-700');
+      }
+    });
+  }
+
+  function showPage(page) {
+    currentPage = page;
+
+    // Ocultar todas las tarjetas
+    projectCards.forEach((card, index) => {
+      const startIndex = (page - 1) * PROJECTS_PER_PAGE;
+      const endIndex = startIndex + PROJECTS_PER_PAGE;
+
+      if (index >= startIndex && index < endIndex) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Actualizar estado de los botones
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+
+    // Actualizar puntos de paginación
+    updatePaginationDots();
+
+    // Scroll suave hacia la sección de proyectos
+    document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Event listeners
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      showPage(currentPage - 1);
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentPage < totalPages) {
+      showPage(currentPage + 1);
+    }
+  });
+
+  // Inicializar paginación
+  createPaginationDots();
+  showPage(1);
+</script>
+
+<style>
+  .project-card {
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-5px);
+  }
+</style>

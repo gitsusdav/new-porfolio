@@ -1,0 +1,201 @@
+---
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  project: {
+    id: number;
+    title: string;
+    shortDescription: string;
+    description: string;
+    image: ImageMetadata;
+    tags: string[];
+    repo: string;
+    live: string;
+  };
+  lang: "es" | "en";
+}
+
+const { project, lang } = Astro.props;
+
+import { useTranslations } from '../i18n/utils';
+import { Image } from 'astro:assets';
+const t = useTranslations(lang);
+---
+
+<div
+  id={`modal-${project.id}`}
+  class="modal-overlay fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"
+  data-modal
+>
+  <div class="modal-container h-full flex items-center justify-center p-4" data-modal-container>
+    <div class="modal-content bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300 relative" data-modal-content>
+      <!-- Close Button (Sticky) - Positioned absolutely over content -->
+      <button
+        class="modal-close sticky top-4 ml-auto mr-4 mt-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 backdrop-blur-sm text-white/70 hover:text-white hover:bg-black/70 transition-all z-30"
+        aria-label="Close modal"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <!-- Modal Content -->
+      <div class="relative -mt-14">
+        <!-- Project Image -->
+        <div class="w-full h-64 md:h-96 overflow-hidden rounded-t-2xl">
+          <Image
+            src={project.image}
+            alt={project.title}
+            class="w-full h-full object-cover"
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 768px) 100vw, 896px"
+          />
+        </div>
+
+        <!-- Project Info -->
+        <div class="p-8">
+          <!-- Tags -->
+          <div class="flex gap-2 flex-wrap mb-6">
+            {project.tags.map(tag => (
+              <span class="px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <!-- Title -->
+          <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">
+            {project.title}
+          </h3>
+
+          <!-- Description -->
+          <p class="text-gray-300 text-lg mb-8 leading-relaxed" set:html={project.description}>
+          </p>
+
+          <!-- Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 px-6 py-4 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-semibold rounded-lg hover:bg-white/20 transition-all duration-200 text-center flex items-center justify-center gap-3"
+            >
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              {t('projects.repository')}
+            </a>
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex-1 px-6 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors duration-200 text-center flex items-center justify-center gap-3"
+            >
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+              </svg>
+              {t('projects.liveDemo')}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modals = document.querySelectorAll('[data-modal]');
+
+    modals.forEach(modal => {
+      const closeBtn = modal.querySelector('.modal-close');
+      const modalContainer = modal.querySelector('[data-modal-container]');
+      const modalContent = modal.querySelector('[data-modal-content]');
+
+      // Close on button click
+      closeBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeModal(modal as HTMLElement);
+      });
+
+      // Close on overlay/container click (but not content click)
+      modalContainer?.addEventListener('click', (e) => {
+        if (e.target === modalContainer) {
+          closeModal(modal as HTMLElement);
+        }
+      });
+
+      // Prevent closing when clicking on modal content
+      modalContent?.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+
+      // Close on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          closeModal(modal as HTMLElement);
+        }
+      });
+    });
+  });
+
+  function closeModal(modal: HTMLElement) {
+    modal.classList.remove('opacity-100');
+    modal.classList.add('opacity-0');
+    const content = modal.querySelector('.modal-content');
+    content?.classList.remove('scale-100');
+    content?.classList.add('scale-95');
+
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }, 300);
+  }
+
+  // Export function to open modal
+  (window as any).openProjectModal = function(modalId: string) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+        const content = modal.querySelector('.modal-content');
+        content?.classList.remove('scale-95');
+        content?.classList.add('scale-100');
+      }, 10);
+    }
+  };
+</script>
+
+<style>
+  .modal-content {
+    position: relative;
+    /* Ocultar scrollbar en navegadores webkit (Chrome, Safari, Edge) */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE y Edge antiguos */
+  }
+
+  .modal-content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari y Opera */
+  }
+
+  .modal-overlay {
+    overflow-y: auto;
+    /* Ocultar scrollbar del overlay también */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .modal-overlay::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .modal-content {
+      margin: 1rem;
+    }
+  }
+</style>
