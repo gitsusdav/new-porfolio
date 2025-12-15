@@ -197,7 +197,7 @@ const PROJECTS_PER_PAGE = 4;
     });
   }
 
-  function showPage(page) {
+  function showPage(page, shouldScroll = false) {
     currentPage = page;
 
     // Ocultar todas las tarjetas
@@ -219,8 +219,10 @@ const PROJECTS_PER_PAGE = 4;
     // Actualizar puntos de paginación
     updatePaginationDots();
 
-    // Scroll suave hacia la sección de proyectos
-    document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Scroll suave hacia la sección de proyectos (solo si el usuario interactúa)
+    if (shouldScroll) {
+      document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   // Event listeners
