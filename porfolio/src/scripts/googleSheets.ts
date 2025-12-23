@@ -10,7 +10,7 @@
  */
 
 // URL de Google Apps Script desde variables de entorno
-const GOOGLE_SCRIPT_URL = import.meta.env.PUBLIC_GOOGLE_SCRIPT_URL;
+const GOOGLE_SCRIPT_URL = import.meta.env.PUBLIC_GOOGLE_SCRIPT_URL || '';
 
 /**
  * Envía los datos del formulario a Google Sheets
@@ -18,6 +18,11 @@ const GOOGLE_SCRIPT_URL = import.meta.env.PUBLIC_GOOGLE_SCRIPT_URL;
  * @returns Promise<boolean> - true si fue exitoso
  */
 export async function sendToGoogleSheets(formData: FormData): Promise<boolean> {
+  if (!GOOGLE_SCRIPT_URL) {
+    console.warn('⚠️ Google Sheets no está configurado. Verifica PUBLIC_GOOGLE_SCRIPT_URL.');
+    return false;
+  }
+
   try {
     // Preparar datos del formulario
     const data = {
