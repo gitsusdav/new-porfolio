@@ -13,6 +13,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: github-pages
     defaults:
       run:
         working-directory: ./porfolio
@@ -32,6 +33,10 @@ jobs:
 
       - name: Build Astro
         run: npm run build
+        env:
+          PUBLIC_CALLMEBOT_PHONE_NUMBER: ${{ secrets.PUBLIC_CALLMEBOT_PHONE_NUMBER }}
+          PUBLIC_CALLMEBOT_API_KEY: ${{ secrets.PUBLIC_CALLMEBOT_API_KEY }}
+          PUBLIC_GOOGLE_SCRIPT_URL: ${{ secrets.PUBLIC_GOOGLE_SCRIPT_URL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
