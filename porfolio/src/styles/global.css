@@ -23,3 +23,102 @@
 body {
   font-family: var(--font-montserrat);
 }
+
+/* ===== Hero Animations ===== */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero-animate {
+  opacity: 0;
+  animation: fadeSlideUp 0.6s ease-out forwards;
+}
+
+.hero-animate-1 { animation-delay: 0.1s; }
+.hero-animate-2 { animation-delay: 0.2s; }
+.hero-animate-3 { animation-delay: 0.3s; }
+.hero-animate-4 { animation-delay: 0.4s; }
+.hero-animate-5 { animation-delay: 0.5s; }
+
+.hero-image {
+  opacity: 0;
+  animation: fadeScale 0.8s ease-out 0.3s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate,
+  .hero-image {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ===== Projects Animations ===== */
+.project-hidden {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.project-animate {
+  opacity: 0;
+  animation: fadeSlideUp 0.5s ease-out forwards;
+}
+
+.project-animate-0 { animation-delay: 0s; }
+.project-animate-1 { animation-delay: 0.1s; }
+.project-animate-2 { animation-delay: 0.2s; }
+.project-animate-3 { animation-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .project-animate,
+  .project-hidden {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ===== Section Animations (Skills & Contact) ===== */
+.section-hidden {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.section-animate {
+  opacity: 0;
+  animation: fadeSlideUp 0.6s ease-out forwards;
+}
+
+.section-animate-1 { animation-delay: 0s; }
+.section-animate-2 { animation-delay: 0.15s; }
+.section-animate-3 { animation-delay: 0.3s; }
+.section-animate-4 { animation-delay: 0.45s; }
+.section-animate-5 { animation-delay: 0.6s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .section-animate,
+  .section-hidden {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

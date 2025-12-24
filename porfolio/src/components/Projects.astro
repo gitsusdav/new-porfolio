@@ -20,9 +20,6 @@ interface Project {
 }
 
 const projects: Project[] = getProjects(lang);
-
-// Configuración de paginación
-const PROJECTS_PER_PAGE = 4;
 ---
 
 <section id="projects" class="min-h-screen py-20 px-4 sm:px-6 lg:px-8">
@@ -148,100 +145,7 @@ const PROJECTS_PER_PAGE = 4;
   ))}
 </section>
 
-<script is:inline define:vars={{ PROJECTS_PER_PAGE }}>
-  let currentPage = 1;
-  const projectCards = document.querySelectorAll('.project-card');
-  const totalProjects = projectCards.length;
-  const totalPages = Math.ceil(totalProjects / PROJECTS_PER_PAGE);
-
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const paginationDots = document.getElementById('pagination-dots');
-
-  // Generar los puntos de paginación
-  function createPaginationDots() {
-    paginationDots.innerHTML = '';
-
-    for (let i = 1; i <= totalPages; i++) {
-      const dot = document.createElement('button');
-      dot.className = 'w-12 h-12 flex items-center justify-center rounded-full text-white font-semibold transition-all';
-      dot.textContent = i;
-      dot.setAttribute('aria-label', `Ir a página ${i}`);
-      dot.setAttribute('data-page', i);
-
-      if (i === currentPage) {
-        dot.classList.add('bg-blue-600', 'scale-110');
-      } else {
-        dot.classList.add('bg-gray-800', 'hover:bg-gray-700');
-      }
-
-      dot.addEventListener('click', () => {
-        showPage(i, true);
-      });
-
-      paginationDots.appendChild(dot);
-    }
-  }
-
-  function updatePaginationDots() {
-    const dots = paginationDots.querySelectorAll('button');
-    dots.forEach((dot, index) => {
-      const pageNum = index + 1;
-      dot.classList.remove('bg-blue-600', 'bg-gray-800', 'scale-110', 'hover:bg-gray-700');
-
-      if (pageNum === currentPage) {
-        dot.classList.add('bg-blue-600', 'scale-110');
-      } else {
-        dot.classList.add('bg-gray-800', 'hover:bg-gray-700');
-      }
-    });
-  }
-
-  function showPage(page, shouldScroll = false) {
-    currentPage = page;
-
-    // Ocultar todas las tarjetas
-    projectCards.forEach((card, index) => {
-      const startIndex = (page - 1) * PROJECTS_PER_PAGE;
-      const endIndex = startIndex + PROJECTS_PER_PAGE;
-
-      if (index >= startIndex && index < endIndex) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-
-    // Actualizar estado de los botones
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
-
-    // Actualizar puntos de paginación
-    updatePaginationDots();
-
-    // Scroll suave hacia la sección de proyectos (solo si el usuario interactúa)
-    if (shouldScroll) {
-      document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  // Event listeners
-  prevBtn.addEventListener('click', () => {
-    if (currentPage > 1) {
-      showPage(currentPage - 1, true);
-    }
-  });
-
-  nextBtn.addEventListener('click', () => {
-    if (currentPage < totalPages) {
-      showPage(currentPage + 1, true);
-    }
-  });
-
-  // Inicializar paginación
-  createPaginationDots();
-  showPage(1);
-</script>
+<script src="../scripts/projects.ts"></script>
 
 <style>
   .project-card {
