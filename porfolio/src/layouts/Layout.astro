@@ -3,10 +3,18 @@ import { getLangFromUrl } from '../i18n/utils';
 
 interface Props {
   title?: string;
+  description?: string;
 }
 
 const lang = getLangFromUrl(Astro.url);
 const { title = 'Jesus Diaz | Software Developer' } = Astro.props;
+
+const description = lang === 'es'
+  ? 'Desarrollador de Software especializado en crear soluciones web modernas y eficientes. React, TypeScript, Python y más.'
+  : 'Software Developer specialized in creating modern and efficient web solutions. React, TypeScript, Python and more.';
+
+const siteUrl = 'https://gitsusdav.github.io/new-porfolio';
+const ogImage = `${siteUrl}/og-image.png`;
 ---
 
 <!doctype html>
@@ -15,7 +23,21 @@ const { title = 'Jesus Diaz | Software Developer' } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="Jesus Diaz - Software Developer Portfolio" />
+		<meta name="description" content={description} />
+
+		<!-- Open Graph / WhatsApp / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={siteUrl} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:site_name" content="Jesus Diaz Portfolio" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
 
 		<!-- Favicons -->
 		<link rel="icon" type="image/x-icon" href={`${import.meta.env.BASE_URL}favicons/favicon.ico`} />
