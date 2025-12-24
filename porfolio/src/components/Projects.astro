@@ -37,7 +37,7 @@ const projects: Project[] = getProjects(lang);
       {projects.map((project, index) => (
         <div
           class="project-card group relative overflow-hidden rounded-2xl"
-          style="min-height: 320px;"
+          style="min-height: 280px;"
         >
           <!-- Background Image -->
           <div class="absolute inset-0">
@@ -49,11 +49,42 @@ const projects: Project[] = getProjects(lang);
               width={800}
               height={600}
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30 md:via-black/50 md:to-transparent"></div>
           </div>
 
-          <!-- Content -->
-          <div class="relative h-full flex flex-col justify-between p-8">
+          <!-- Mobile Content (siempre visible) -->
+          <div class="md:hidden relative h-full flex flex-col justify-between p-5">
+            <!-- Tags -->
+            <div class="flex gap-1.5 flex-wrap">
+              {project.tags.slice(0, 3).map(tag => (
+                <span class="px-2 py-0.5 bg-blue-500/90 text-white text-xs font-semibold rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <!-- Title, Description & Button -->
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2">
+                {project.title}
+              </h3>
+              <p class="text-gray-300 text-sm mb-3 line-clamp-2">
+                {project.shortDescription}
+              </p>
+              <button
+                onclick={`openProjectModal('modal-${project.id}')`}
+                class="px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg active:bg-blue-700 transition-colors inline-flex items-center gap-2"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                {t('projects.viewMore')}
+              </button>
+            </div>
+          </div>
+
+          <!-- Desktop Content (default state) -->
+          <div class="hidden md:flex relative h-full flex-col justify-between p-8">
             <!-- Top Section - Tags -->
             <div class="flex gap-2 flex-wrap">
               {project.tags.map(tag => (
@@ -71,8 +102,8 @@ const projects: Project[] = getProjects(lang);
             </div>
           </div>
 
-          <!-- Hover Overlay -->
-          <div class="absolute inset-0 bg-gradient-to-br from-gray-900/95 via-blue-950/95 to-gray-950/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-8">
+          <!-- Desktop Hover Overlay -->
+          <div class="hidden md:flex absolute inset-0 bg-gradient-to-br from-gray-900/95 via-blue-950/95 to-gray-950/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-col justify-between p-8">
             <!-- Top Section - Tags (on hover) -->
             <div class="flex gap-2 flex-wrap">
               {project.tags.map(tag => (

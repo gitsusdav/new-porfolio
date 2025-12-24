@@ -101,6 +101,14 @@ function showPage(page: number, shouldScroll = false, animate = true) {
 }
 
 // Intersection Observer para activar animaciones al hacer scroll
+// En mobile: se dispara cuando el botón "Descargar Curriculum" toca el navbar
+// En desktop: se dispara cuando el grid de proyectos es visible
+const isMobile = window.matchMedia('(max-width: 767px)').matches;
+
+// Obtener altura real del navbar
+const navbar = document.querySelector('nav');
+const navbarHeight = navbar ? navbar.offsetHeight : 64;
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting && !hasAnimated) {
@@ -110,7 +118,9 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, {
-  threshold: 0.5
+  // En mobile: rootMargin negativo basado en la altura real del navbar
+  rootMargin: isMobile ? `-${navbarHeight}px 0px -70% 0px` : '0px',
+  threshold: 0
 });
 
 // Event listeners
@@ -130,13 +140,12 @@ nextBtn?.addEventListener('click', () => {
 createPaginationDots();
 showPage(1, false, false);
 
-// En mobile, observar el texto "Tengo más de dos años..." (.hero-animate-3)
+// En mobile, observar los social links (.hero-animate-5) Y la sección de proyectos
 // En desktop, observar el grid de proyectos
-const isMobile = window.matchMedia('(max-width: 767px)').matches;
-const triggerElement = isMobile
-  ? document.querySelector('.hero-animate-3')
-  : projectsGrid;
-
-if (triggerElement) {
-  observer.observe(triggerElement);
+if (isMobile) {
+  const socialLinks = document.querySelector('.hero-animate-5');
+  if (socialLinks) observer.observe(socialLinks);
+  if (projectsGrid) observer.observe(projectsGrid);
+} else {
+  if (projectsGrid) observer.observe(projectsGrid);
 }
