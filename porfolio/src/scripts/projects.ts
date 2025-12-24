@@ -130,6 +130,13 @@ nextBtn?.addEventListener('click', () => {
 createPaginationDots();
 showPage(1, false, false);
 
-if (projectsGrid) {
-  observer.observe(projectsGrid);
+// En mobile, observar el texto "Tengo más de dos años..." (.hero-animate-3)
+// En desktop, observar el grid de proyectos
+const isMobile = window.matchMedia('(max-width: 767px)').matches;
+const triggerElement = isMobile
+  ? document.querySelector('.hero-animate-3')
+  : projectsGrid;
+
+if (triggerElement) {
+  observer.observe(triggerElement);
 }
